@@ -4,6 +4,7 @@ const { isValidationName } = require('../middlewares/isValidationName');
 const { isValidationEmail } = require('../middlewares/isValidationEmail');
 const { isValidationPassword } = require('../middlewares/isValidationPassword');
 const { isEmailExist } = require('../middlewares/isEmailExist');
+const { validationToken } = require('../middlewares/isValidationToken');
 
 const routes = express.Router();
 
@@ -13,5 +14,7 @@ isValidationEmail,
 isEmailExist,
 isValidationPassword,
 userController.createUser);
+
+routes.get('/', validationToken, userController.getUsers);
 
 module.exports = routes;

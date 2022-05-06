@@ -9,7 +9,8 @@ const authLogin = async (email) => {
     return { message: 'Invalid fields' };
   }
 
-  const token = jwt.sign({ data: { email } }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ data: email, name: findEmail.dataValues.displayName },
+    process.env.JWT_SECRET, {
     expiresIn: '7d',
     algorithm: 'HS256',
   });

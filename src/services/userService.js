@@ -3,9 +3,9 @@ const { User } = require('../database/models');
 require('dotenv').config();
 
 const createUser = async ({ displayName, email, password, image }) => {
-  await User.create({ displayName, email, password, image });
+  const user = await User.create({ displayName, email, password, image });
 
-  const token = jwt.sign({ data: { displayName, email } }, process.env.JWT_SECRET, {
+  const token = jwt.sign({ data: user.dataValues.displayName, email }, process.env.JWT_SECRET, {
     expiresIn: '7d',
     algorithm: 'HS256',
   });
@@ -13,6 +13,13 @@ const createUser = async ({ displayName, email, password, image }) => {
   return { token };
 };
 
+const getUsers = async () => {
+  const findUsers = await User.findAll();
+  
+  return findUsers;
+  };
+
 module.exports = {
   createUser,
+  getUsers,
 };
