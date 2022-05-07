@@ -14,12 +14,24 @@ const createUser = async ({ displayName, email, password, image }) => {
 };
 
 const getUsers = async () => {
-  const findUsers = await User.findAll();
+  const findUsers = await User.findAll({ attributes: { exclude: 'password' } });
   
   return findUsers;
+  };
+
+  const getUserId = async (id) => {
+    const userId = await User.findOne({
+      where: { id },
+      attributes: { exclude: 'password' },
+    });
+  
+    if (!userId) throw new Error('User does not exist');
+  
+    return userId;
   };
 
 module.exports = {
   createUser,
   getUsers,
+  getUserId,
 };
