@@ -10,7 +10,7 @@ const createUser = async (req, res) => {
   }
 };
 
-const getUsers = async (req, res) => {
+const getUsers = async (_req, res) => {
   try {
    const findUsers = await userService.getUsers();
  
